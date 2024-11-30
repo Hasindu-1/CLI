@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b2e1821-6f15-4f18-a9b1-03c463a22393" name="Changes" comment="ConFigure class setup &amp; get user  valid input from main class.">
+    <list default="true" id="9b2e1821-6f15-4f18-a9b1-03c463a22393" name="Changes" comment="configure details set to Json format">
+      <change afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TicketPool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vendor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI Final.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CLI Final.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Configure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Configure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +90,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732997520158</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="configure details set to Json format">
+      <option name="closed" value="true" />
+      <created>1732999552127</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732999552127</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -107,6 +115,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Main class implementation" />
     <MESSAGE value="ConFigure class setup &amp; get user  valid input from main class." />
-    <option name="LAST_COMMIT_MESSAGE" value="ConFigure class setup &amp; get user  valid input from main class." />
+    <MESSAGE value="configure details set to Json format" />
+    <option name="LAST_COMMIT_MESSAGE" value="configure details set to Json format" />
   </component>
 </project>
