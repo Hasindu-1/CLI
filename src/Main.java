@@ -16,5 +16,14 @@ public  class Main {
 
         Configure c1 = new Configure(totalTickets,ticketReleaseRate,customerRetrievalRate,maxTicketCapacity);
 
+        //file creation
+        c1.saveToFile("File.json");
+        System.out.println("file written saved");
+
+        //file Reading
+        System.out.println(Configure.readFile("File.json"));
+        System.out.println("file read successful: ");
+
+
     }
 }

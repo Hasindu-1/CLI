@@ -1,3 +1,9 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Configure {
@@ -38,6 +44,41 @@ public class Configure {
 
 
     }
+
+
+    public void saveToFile(String filename) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (FileWriter writer = new FileWriter(filename)){
+            gson.toJson(this,writer);
+
+        } catch (IOException exception) {
+            System.out.println("There is a error called - "+exception);
+        }
+    }
+
+    public static Configure readFile(String filename) {
+        Gson gson = new Gson();
+        try (FileReader reader = new FileReader(filename)) {
+            return gson.fromJson(reader, Configure.class);
+
+
+        } catch (IOException exception) {
+            System.out.println("There is an error Reading this file- " + exception);
+            return null;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return + '\n'+ "Configure Details" + '\n'+
+                "TotalTickets = " + totalTickets + '\n' +
+                "TicketReleaseRate = " + ticketReleaseRate + '\n' +
+                "CustomerRetrievalRate = " + customerRetrievalRate + '\n' +
+                "MaxTicketCapacity = " + maxTicketCapacity + '\n' ;
+    }
+
+
+
 
 
 
