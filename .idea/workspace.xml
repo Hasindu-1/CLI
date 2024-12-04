@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b2e1821-6f15-4f18-a9b1-03c463a22393" name="Changes" comment="validity checker , load configure files">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Configure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Configure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vendor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vendor.java" afterDir="false" />
-    </list>
+    <list default="true" id="9b2e1821-6f15-4f18-a9b1-03c463a22393" name="Changes" comment="implement load file method ,structure the program basic structure" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733297351406</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="implement load file method ,structure the program basic structure">
+      <option name="closed" value="true" />
+      <created>1733328159140</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733328159140</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -135,6 +137,7 @@
     <MESSAGE value="configure details set to Json format" />
     <MESSAGE value="create Threads &amp; Add Vendor,Customer,TicketPool classes" />
     <MESSAGE value="validity checker , load configure files" />
-    <option name="LAST_COMMIT_MESSAGE" value="validity checker , load configure files" />
+    <MESSAGE value="implement load file method ,structure the program basic structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement load file method ,structure the program basic structure" />
   </component>
 </project>
