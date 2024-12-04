@@ -21,18 +21,43 @@ public class Configure {
         this.maxTicketCapacity = maxTicketCapacity;
     }
 
-    public  static int  validity(Scanner input, String para){
+    public  static int  validity(Scanner input, String para,int totalTickets){
         int number=-1;
+
+
         while(number <=0){
             System.out.println("Enter the "+para + " ");
+
+
             if(input.hasNextInt()) {
                 number = input.nextInt();
 
                 if (number < 1) {
                     System.out.println("Entered " + para + " must be a positive number");
+                    number = -1;
 
 
                 }
+                if (para.equals("Maximum Ticket Capacity")) {
+                    if (number > totalTickets) {
+                        System.out.println("The Maximum Ticket Capacity must not exceed the Total Number of Tickets (" + totalTickets + ").");
+                        number = -1; // Reset the number for re-entry
+                    }
+                } else if (para.equals("Ticket Release Rate")) {
+                    if(number > totalTickets){
+                        System.out.println("Ticket Release Rate must not exceed the Total Number of Tickets (" + totalTickets + ").");
+                        number = -1;
+                    }
+
+                } else if (para.equals("Customer Retrieval Rate")) {
+                    if(number > totalTickets){
+                        System.out.println("Customer Retrieval Rate the Total Number of Tickets (" + totalTickets + ").");
+                        number = -1;
+                    }
+
+                }
+
+
             }
             else{
                 System.out.println("Invalid input "+para+"Please try again");
