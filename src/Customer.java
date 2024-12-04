@@ -14,6 +14,8 @@ public class Customer implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("cusomer run");
+        tPool.removeTicket();
 
     }
 

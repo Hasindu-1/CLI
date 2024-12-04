@@ -93,13 +93,35 @@ public class Configure {
         }
     }
 
+
+//    public  void savetxtfile(String filename){
+//        try{
+//            FileWriter fw1 = new FileWriter(filename,false);
+//            fw1.write("Configure Txt  ");
+//            fw1.write("Total Tickets =" + totalTickets );
+//            fw1.write( "TicketReleaseRate = " + ticketReleaseRate );
+//            fw1.write("CustomerRetrievalRate = " + customerRetrievalRate );
+//            fw1.write("MaxTicketCapacity = " + maxTicketCapacity );
+//        }catch (Exception e){
+//            System.out.println("Error To write in txt file");
+//            System.out.println(e.getMessage());
+//
+//        }
+//
+//    }
+
     @Override
     public String toString() {
-        return + '\n'+ "Configure Details" + '\n'+
-                "TotalTickets = " + totalTickets + '\n' +
-                "TicketReleaseRate = " + ticketReleaseRate + '\n' +
-                "CustomerRetrievalRate = " + customerRetrievalRate + '\n' +
-                "MaxTicketCapacity = " + maxTicketCapacity + '\n' ;
+        return   "|****************************************|\n"+
+                "|            Configure Details           |\n" +
+                "|****************************************|\n"+
+                        String.format("| %-25s : %-10d |\n", "Total Tickets", totalTickets) +
+                        String.format("| %-25s : %-10d |\n", "Ticket Release Rate", ticketReleaseRate) +
+                        String.format("| %-25s : %-10d |\n", "Customer Retrieval Rate", customerRetrievalRate) +
+                        String.format("| %-25s : %-10d |\n", "Max Ticket Capacity", maxTicketCapacity)+
+
+
+                        "|****************************************|\n" ;
     }
 
 

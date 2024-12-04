@@ -2,73 +2,103 @@ import java.util.Scanner;
 
 public  class Main {
 
+
+
     public static void menu(Scanner input) {
         boolean loop = true;
-        while (loop) {
-            System.out.println("\n+----------------------------------------------+\n|      Admin Panel For TicketPlace System      |\n+----------------------------------------------+");
-            System.out.println("\n1. Configure System\n2. Start Simulation\n3. Stop System\n0. Exit");
-            System.out.print("\nEnter your choice : ");
-            switch (input.nextLine()) {
-                case "1":
-                    createNewConfig();
-                    break;
-                case "2":
-                    LoadCong();
-                    break;
-                case "3":
-                    loop = false;
-                    break;
-                default:
-                    System.out.println("\tInvalid choice...");
-            }
 
+        while (loop) { // Use a loop to keep displaying the menu
+            try {
+                System.out.println("\n+----------------------------------------------+");
+                System.out.println("|      Admin Panel For TicketPlace System      |");
+                System.out.println("+----------------------------------------------+");
+                System.out.println("\n1. Configure System\n2. Start Simulation\n3. Stop System\n0. Exit");
+                System.out.print("\nEnter your choice: ");
+
+                String choice = input.nextLine(); // Get user input
+
+                switch (choice) {
+                    case "1":
+                        createNewConfig(); // Call configuration method
+                        loop=false;
+                        break;
+                    case "2":
+                        LoadCong(); // Call load configuration method
+                        loop = false;
+                        break;
+                    case "3":
+                        System.out.println("Stopping the system...");
+                        loop = false; // Stop the menu loop
+                        break;
+                    case "0":
+                        System.out.println("Exiting the system. Goodbye!");
+                        loop = false; // Exit the menu loop
+                        break;
+                    default:
+                        System.out.println("\tInvalid choice. Please select a valid option...");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please try again!");
+                input.nextLine(); // Clear the invalid input
+            }
         }
     }
 
+
     public static  void createNewConfig(){
         Scanner input = new Scanner(System.in);
-        int totalTickets = Configure.validity(input,"Total Number of Tickets",10);
+        int totalTickets = Configure.validity(input,"Total Number of Tickets",100);
         int ticketReleaseRate = Configure.validity(input,"Ticket Release Rate" ,totalTickets);
         int customerRetrievalRate = Configure.validity(input,"Customer Retrieval Rate",totalTickets);
         int maxTicketCapacity = Configure.validity(input,"Maximum Ticket Capacity",totalTickets);
 
         Configure c1 = new Configure(totalTickets,ticketReleaseRate,customerRetrievalRate,maxTicketCapacity);
 
-        System.out.println("Enter the file name that want to create.");
-        String s1 = input.next();
-        //file creation
-        c1.saveToFile(s1);
-        System.out.println(s1+"file written saved");
+
+
+
+            System.out.println("Enter the file name that want to create.");
+            String s1 = input.next();
+            //file creation
+            c1.saveToFile(s1);
+            //c1.savetxtfile(s1);
+            System.out.println( "file written saved");
+            String show = c1.toString();
+            System.out.println(show);
+
+            systemStart();
+
+
 
     }
 
     public static void LoadCong(){
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the name of the file to Load");
-        String fileName = input.next();
-        if (fileName != null){
-            //file Reading
-            System.out.println(Configure.readFile("File.json"));
-            System.out.println("file read successful: ");
+        while(true){
+            String fileName = input.next();
+            if(Configure.readFile(fileName) != null){
+                System.out.println(Configure.readFile(fileName));
+                System.out.println("file read successful: ");
+                systemStart();
+                break;
+
+
+            }else {
+                System.out.println("Error ~ Failed to Load. Please check the file name and Try Again.");
+            }
 
         }
+
+
+
 
 
 
     }
 
 
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("-------------Ticketing System-----------");
-        System.out.println("****************************************");
-        System.out.println("                 Menu                       ");
-        System.out.println("****************************************");
-        menu(input);
-
-
-
-
+    public static void systemStart(){
         //Ticket pool
         TicketPool t1 = new TicketPool();
 
@@ -87,6 +117,19 @@ public  class Main {
         //Start threads
         vendorThread1.start();
         customerThread1.start();
+        System.out.println("Simulation started! Threads are running in the background...\n");
+    }
+
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("-------------Ticketing System-----------");
+        menu(input);
+
+
+
+
+
 
 
 

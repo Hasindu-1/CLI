@@ -19,6 +19,8 @@ public class Vendor implements Runnable {
 
     @Override
     public void run(){
+        System.out.println("vendor run");
+        tPool.addTickets();
 
 
 
