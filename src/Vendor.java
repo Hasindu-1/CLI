@@ -2,34 +2,53 @@ public class Vendor implements Runnable {
 
     private int vendorId;
 
-    private int ticketsPerRelease;
+
+//    private int ticketsPerRelease;
 
 
-    private int retrievalInterval;
+//    private int retrievalInterval;
+
+    //From configure file
+    private int totalTickets;
+
+    private int ticketReleaseRate;
 
     private  final TicketPool tPool;
 
 
-    public Vendor(int vendorId, int ticketsPerRelease, int retrievalInterval, TicketPool tPool) {
-        this.vendorId = vendorId;
-        this.ticketsPerRelease = ticketsPerRelease;
-        this.retrievalInterval = retrievalInterval;
+    public Vendor(int vendorIds,int ticketReleaseRate ,int totaltickets,TicketPool tPool) {
+        this.vendorId = vendorIds;
+        this.totalTickets=totaltickets;
+        this.ticketReleaseRate=ticketReleaseRate;
         this.tPool = tPool;
     }
 
     @Override
     public void run(){
-        System.out.println("vendor run");
-        tPool.addTickets();
+
+            for (int j = 0; j < totalTickets; j++) {
+                // Construct each ticket string dynamically
+                String ticket = getVendorId() +"   Vendor add Ticket-"+ j ;
+
+                // Add the ticket to the TicketPool
+                tPool.addTickets(ticket);
+                try {
+                    Thread.sleep(ticketReleaseRate * 1000);
+
+                }catch (Exception e){
+                    System.out.println("case Vendor");
+
+
+                }
+            }
+
+
+
+
 
 
 
     }
-
-
-
-
-
 
     public int getVendorId() {
         return vendorId;
@@ -39,21 +58,25 @@ public class Vendor implements Runnable {
         this.vendorId = vendorId;
     }
 
-    public int getTicketsPerRelease() {
-        return ticketsPerRelease;
+    public int getTotalTickets() {
+        return totalTickets;
     }
 
-    public void setTicketsPerRelease(int ticketsPerRelease) {
-        this.ticketsPerRelease = ticketsPerRelease;
+    public void setTotalTickets(int totalTickets) {
+        this.totalTickets = totalTickets;
     }
 
-    public int getRetrievalInterval() {
-        return retrievalInterval;
+    public int getTicketReleaseRate() {
+        return ticketReleaseRate;
     }
 
-    public void setRetrievalInterval(int retrievalInterval) {
-        this.retrievalInterval = retrievalInterval;
+    public void setTicketReleaseRate(int ticketReleaseRate) {
+        this.ticketReleaseRate = ticketReleaseRate;
     }
+
+
+
+
 
 
 }

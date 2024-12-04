@@ -1,21 +1,31 @@
 public class Customer implements Runnable {
     private int customerId;
 
-    private int retrievalInterval;
+    private int customerRetrievalRate;
+
+    private  int totalTickets;
     private  final TicketPool tPool;
 
 
-    public Customer(int customerId, int retrievalInterval, TicketPool tPool) {
+    public Customer(int customerId, int customerRetrievalRate , TicketPool tPool,int totalTickets) {
         this.customerId = customerId;
-        this.retrievalInterval = retrievalInterval;
+        this.customerRetrievalRate=customerRetrievalRate;
         this.tPool = tPool;
+        this.totalTickets=totalTickets;
     }
 
 
     @Override
     public void run() {
-        System.out.println("cusomer run");
-        tPool.removeTicket();
+        for (int i = 0; i < totalTickets; i++) {
+            tPool.removeTicket(customerId);
+            try {
+                Thread.sleep(customerRetrievalRate * 1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
 
     }
 
@@ -27,14 +37,15 @@ public class Customer implements Runnable {
         this.customerId=customerId;
     }
 
-
-    public int getRetrievalInterval() {
-        return retrievalInterval;
+    public int getCustomerRetrievalRate() {
+        return customerRetrievalRate;
     }
 
-    public void setRetrievalInterval(int retrievalInterval) {
-        this.retrievalInterval = retrievalInterval;
+    public void setCustomerRetrievalRate(int customerRetrievalRate) {
+        this.customerRetrievalRate = customerRetrievalRate;
     }
+
+
 
 
 
