@@ -20,12 +20,12 @@ public class TicketPool {
 
     public synchronized void addTickets(String ticket){
 
-        if (totalTicketsAdded >= totalTickets) {
-            System.out.println("Total ticket limit reached ... Producer stopping");
-            //return false; // Stop the producer from adding more tickets
-        }
+//        if (totalTicketsAdded >= totalTickets) {
+//            System.out.println("Total ticket limit reached ... Producer stopping");
+//            //return false; // Stop the producer from adding more tickets
+//        }
 
-        while (ticketPool.size() >= maxTicket || totalTicketsAdded >= totalTickets) {
+        while (ticketPool.size() >= maxTicket ) {
 
 
             try {
@@ -36,7 +36,10 @@ public class TicketPool {
             }
         }
         ticketPool.add(ticket);
+        totalTicketsAdded ++;
         notify();
+
+
         System.out.println("Ticket added by - " + Thread.currentThread().getName() + " - current size is - " + ticketPool.size());
         //return true;
 
