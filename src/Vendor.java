@@ -3,52 +3,56 @@ public class Vendor implements Runnable {
     private int vendorId;
 
 
-//    private int ticketsPerRelease;
 
 
-//    private int retrievalInterval;
-
-    //From configure file
     private int totalTickets;
 
     private int ticketReleaseRate;
 
+    //From configure file
+    private Configure c1;
+
     private  final TicketPool tPool;
 
 
-    public Vendor(int vendorIds,int ticketReleaseRate ,int totaltickets,TicketPool tPool) {
+
+    public Vendor(int vendorIds,TicketPool tPool,Configure c1) {
         this.vendorId = vendorIds;
-        this.totalTickets=totaltickets;
-        this.ticketReleaseRate=ticketReleaseRate;
+
         this.tPool = tPool;
+        this.c1=c1;
     }
 
     @Override
     public void run(){
 
-            for (int j = 0; j < totalTickets; j++) {
+            for (int j = 0; j < c1.getTotalTickets(); j++) {
                 // Construct each ticket string dynamically
                 String ticket = getVendorId() +"   Vendor add Ticket-"+ j ;
-
-                // Add the ticket to the TicketPool
                 tPool.addTickets(ticket);
-                try {
-                    Thread.sleep(ticketReleaseRate * 1000);
 
-                }catch (Exception e){
+//                // Add the ticket to the TicketPool
+//                if (!tPool.addTickets(ticket)) {
+//                    // Stop if the global ticket limit is reached
+//                    System.out.println("Vendor " + vendorId + " stopped adding tickets");
+//                    break;
+//                }
+                try {
+                    Thread.sleep(c1.getTicketReleaseRate());
+
+                }catch (InterruptedException e){
                     System.out.println("case Vendor");
+                    throw new RuntimeException(e);
 
 
                 }
             }
 
 
-
-
-
-
-
     }
+
+
+
 
     public int getVendorId() {
         return vendorId;

@@ -4,29 +4,51 @@ public class Customer implements Runnable {
     private int customerRetrievalRate;
 
     private  int totalTickets;
+
+    private Configure c1;
     private  final TicketPool tPool;
 
 
-    public Customer(int customerId, int customerRetrievalRate , TicketPool tPool,int totalTickets) {
+    public Customer(int customerId , TicketPool tPool,Configure c1) {
         this.customerId = customerId;
-        this.customerRetrievalRate=customerRetrievalRate;
+//        this.customerRetrievalRate=customerRetrievalRate;
         this.tPool = tPool;
-        this.totalTickets=totalTickets;
+//        this.totalTickets=totalTickets;
+        this.c1=c1;
     }
 
 
+//    @Override
+//    public void run() {
+//        for (int i = 0; i < c1.getTotalTickets(); i++) {
+//            tPool.removeTicket(customerId);
+//            //System.out.println("Ticket is - " + (i+1) + " - Customer name is - " + Thread.currentThread().getName());
+//
+//            try {
+//                Thread.sleep(c1.getCustomerRetrievalRate());
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//        }
+//
+//    }
+
     @Override
     public void run() {
-        for (int i = 0; i < totalTickets; i++) {
-            tPool.removeTicket(customerId);
-            try {
-                Thread.sleep(customerRetrievalRate * 1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        for (int i = 0; i < c1.getTotalTickets(); i++) {
+            synchronized (tPool) {
+                tPool.removeTicket(customerId);
+
+                try {
+                    Thread.sleep(c1.getCustomerRetrievalRate());
+
+                } catch (InterruptedException e) {
+                    System.out.println(e);
+                    break;
+                }
             }
-
         }
-
     }
 
     public int getCustomerId(){
@@ -44,6 +66,7 @@ public class Customer implements Runnable {
     public void setCustomerRetrievalRate(int customerRetrievalRate) {
         this.customerRetrievalRate = customerRetrievalRate;
     }
+
 
 
 

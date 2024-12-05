@@ -66,7 +66,7 @@ public  class Main {
             String show = c1.toString();
             System.out.println(show);
 
-            systemStart(totalTickets,ticketReleaseRate,customerRetrievalRate,maxTicketCapacity);
+            systemStart(totalTickets,ticketReleaseRate,customerRetrievalRate,maxTicketCapacity,c1);
 
 
 
@@ -82,7 +82,7 @@ public  class Main {
             if(config != null){
                 System.out.println(Configure.readFile(fileName));
                 System.out.println("file read successful: ");
-                systemStart(config.getTotalTickets(), config.getTicketReleaseRate(),config.getCustomerRetrievalRate(),config.getMaxTicketCapacity());
+                systemStart(config.getTotalTickets(), config.getTicketReleaseRate(),config.getCustomerRetrievalRate(),config.getMaxTicketCapacity(),config);
                 break;
 
 
@@ -100,36 +100,41 @@ public  class Main {
     }
 
 
-    public static void systemStart(int totalTickets,int ticketReleaseRate,int customerRetrievalRate ,int maxTicketCapacity){
+    public static void systemStart(int totalTickets,int ticketReleaseRate,int customerRetrievalRate ,int maxTicketCapacity,Configure c1){
         System.out.println(totalTickets );
         System.out.println(ticketReleaseRate );
         System.out.println(customerRetrievalRate);
         System.out.println(maxTicketCapacity);
 
         //Ticket pool
-        TicketPool t1 = new TicketPool(maxTicketCapacity);
+        TicketPool t1 = new TicketPool(maxTicketCapacity,totalTickets);
 
         //create Vendor (object)
-        Vendor v1 = new Vendor(1,totalTickets,ticketReleaseRate,t1);
+        Vendor v1 = new Vendor(1,t1,c1);
 
         Thread vendorThread1 = new Thread(v1);
 
-        Vendor v2 = new Vendor(2,totalTickets,ticketReleaseRate,t1);
+        Vendor v2 = new Vendor(2,t1,c1);
         Thread vendorThread2 = new Thread(v2);
 
 
 
         ////create Customer (object)
-        Customer cu1 = new Customer(1,2000,t1,totalTickets);
+        Customer cu1 = new Customer(1,t1,c1);
 
         Thread  customerThread1= new Thread(cu1);
+
+        Customer cu2 = new Customer(2,t1,c1);
+
+        Thread customerThread2 =new Thread(cu2);
 
 
 
         //Start threads
         vendorThread1.start();
         vendorThread2.start();
-        //customerThread1.start();
+        customerThread1.start();
+        customerThread2.start();
         System.out.println("Simulation started! Threads are running in the background...\n");
     }
 

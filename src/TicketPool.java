@@ -1,34 +1,48 @@
 import java.util.Vector;
 
 public class TicketPool {
-    private int maxTicket;
+    private int maxTicket;// Maximum size of the ticket pool
+
+    public int totalTicketsAdded =0; //// Counter for the total number of tickets added
+
+    private int totalTickets;
     private final  Vector<String> ticketPool =new Vector<>();
 
 
-    public TicketPool(int maxTicket){
+
+
+    public TicketPool(int maxTicket,int totalTickets){
         this.maxTicket=maxTicket;
+        this.totalTickets=totalTickets;
 
     }
 
 
     public synchronized void addTickets(String ticket){
-        int i = 0;
 
-        while(ticketPool.size() >= maxTicket){
-            try{
-                System.out.println("Current Ticket pool is full ...Producer waiting");
+        if (totalTicketsAdded >= totalTickets) {
+            System.out.println("Total ticket limit reached ... Producer stopping");
+            //return false; // Stop the producer from adding more tickets
+        }
+
+        while (ticketPool.size() >= maxTicket || totalTicketsAdded >= totalTickets) {
+
+
+            try {
+                System.out.println("Current Ticket pool is full ... Producer waiting");
                 wait();
-            }catch (Exception e){
-                throw new RuntimeException();
-
+            } catch (InterruptedException e) {
+                throw new RuntimeException("Producer interrupted", e);
             }
         }
         ticketPool.add(ticket);
-        i++;
-        System.out.println("add tick method  " + i);
-        notifyAll();
+        notify();
+        System.out.println("Ticket added by - " + Thread.currentThread().getName() + " - current size is - " + ticketPool.size());
+        //return true;
 
     }
+
+
 
 
     public synchronized void removeTicket(int customerID){
@@ -41,13 +55,14 @@ public class TicketPool {
                 throw new RuntimeException();
             }
         }
-
         ticketPool.remove(0);
-        i++;
-        System.out.println("customer "+customerID+" purchased ticket number " + i);
+        System.out.println("Ticket bought by - " + Thread.currentThread().getName() + " - current size is - " + ticketPool.size() + " - Ticket is - " );
         notifyAll();
 
     }
+
+
+
 
 
 
