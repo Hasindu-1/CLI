@@ -1,63 +1,44 @@
 public class Customer implements Runnable {
-    private int customerId;
 
-    private int customerRetrievalRate;
+
+    private int customerRetrievalRate;//Frequency which the tickets will be removed from pool
+
+    private int quantity;//Quantity customer wiling to purchase
 
     private  int totalTickets;
 
-    private Configure c1;
-    private  final TicketPool tPool;
+
+    private  final TicketPool tPool;//shared resource from Ticket pool for customer and Vendor.
 
 
-    public Customer(int customerId , TicketPool tPool,Configure c1) {
-        this.customerId = customerId;
-//        this.customerRetrievalRate=customerRetrievalRate;
+    public Customer( TicketPool tPool,int totalTickets,int customerRetrievalRate) {
         this.tPool = tPool;
-//        this.totalTickets=totalTickets;
-        this.c1=c1;
+        this.totalTickets=totalTickets;
+        this.customerRetrievalRate=customerRetrievalRate;
     }
 
 
-//    @Override
-//    public void run() {
-//        for (int i = 0; i < c1.getTotalTickets(); i++) {
-//            tPool.removeTicket(customerId);
-//            //System.out.println("Ticket is - " + (i+1) + " - Customer name is - " + Thread.currentThread().getName());
-//
-//            try {
-//                Thread.sleep(c1.getCustomerRetrievalRate());
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//        }
-//
-//    }
+
 
     @Override
     public void run() {
-        for (int i = 0; i < c1.getTotalTickets(); i++) {
-            synchronized (tPool) {
-                tPool.removeTicket(customerId);
+        for (int i = 0; i < Vendor.initialGlobalV ; i++) {
+
+
+                Ticket ticket = tPool.buyTicket();
+                System.out.println("Ticket bought by" + Thread.currentThread().getName()+"Ticket is "+ticket);
 
                 try {
-                    Thread.sleep(c1.getCustomerRetrievalRate());
+                    Thread.sleep(customerRetrievalRate);
 
                 } catch (InterruptedException e) {
-                    System.out.println(e);
-                    break;
+                    throw new RuntimeException(e);
+
                 }
-            }
+
         }
     }
 
-    public int getCustomerId(){
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId){
-        this.customerId=customerId;
-    }
 
     public int getCustomerRetrievalRate() {
         return customerRetrievalRate;

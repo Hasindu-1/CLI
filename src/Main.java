@@ -109,33 +109,36 @@ public  class Main {
         //Ticket pool
         TicketPool t1 = new TicketPool(maxTicketCapacity,totalTickets);
 
+
         //create Vendor (object)
-        Vendor v1 = new Vendor(1,t1,c1);
+        Vendor v1 = new Vendor(totalTickets,t1,c1);
 
         Thread vendorThread1 = new Thread(v1);
 
-        Vendor v2 = new Vendor(2,t1,c1);
+        Vendor v2 = new Vendor(totalTickets,t1,c1);
         Thread vendorThread2 = new Thread(v2);
+
+        Vendor v3 = new Vendor(totalTickets,t1,c1);
+        Thread vendorThread3 = new Thread(v3);
 
 
 
         ////create Customer (object)
-        Customer cu1 = new Customer(1,t1,c1);
+        Customer cu1 = new Customer(t1,totalTickets,customerRetrievalRate);
+        Thread  customerThread1= new Thread(cu1,"customer 1");
 
-        Thread  customerThread1= new Thread(cu1);
-
-        Customer cu2 = new Customer(2,t1,c1);
-
-        Thread customerThread2 =new Thread(cu2);
+        Customer cu2 = new Customer(t1,totalTickets,customerRetrievalRate);
+        Thread customerThread2 =new Thread(cu1,"customer 2");
 
 
 
         //Start threads
         vendorThread1.start();
         vendorThread2.start();
+        vendorThread3.start();
         customerThread1.start();
         customerThread2.start();
-        System.out.println("Simulation started! Threads are running in the background...\n");
+        System.out.println("Simulation started! Threads are running...\n");
     }
 
 
