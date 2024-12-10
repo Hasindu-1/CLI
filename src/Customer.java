@@ -14,27 +14,27 @@ public class Customer implements Runnable {
     }
 
 
+
     @Override
     public void run() {
-        for (int i = 0; i < Vendor.initialGlobalV ; i++) {
-
-            Ticket ticket = tPool.buyTicket();
-
-            if(Vendor.globalV == 0){
-                ticketAvailability = false;
-            }
-
+        for (int i = 0; i < totalTickets; i++) {
             try {
-                Thread.sleep(customerRetrievalRate);
-
-
+                Ticket ticket = tPool.buyTicket();
+                if (ticket != null) {
+                    //System.out.println(Thread.currentThread().getName() + " bought ticket: " + ticket);
+                    Thread.sleep(customerRetrievalRate);
+                } else {
+                    break; // Exit if no more tickets are available
+                }
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 logger.warning("Customer interrupted: " + e.getMessage());
-                throw new RuntimeException(e);
-
+                break;
             }
-
         }
     }
+
+
+
 
 }

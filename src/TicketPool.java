@@ -70,27 +70,25 @@ public class TicketPool {
 
 
     public synchronized Ticket buyTicket(){
-
         while(ticketPool.isEmpty()){
+            if (totalTicketsAdded >= totalTickets) {
+                return null; // No more tickets will be added
+            }
             try{
                 System.out.println("\n================ CUSTOMER ACTIONS ================");
                 System.out.println(Thread.currentThread().getName() +" Current Ticket pool is empty ...Customer  waiting");
-                if(Customer.ticketAvailability == true){
-                    wait();
-                    break;
-                }else{
-                    break;
-                }
+                wait();
 
-//                break;
-            }catch (Exception e){
-                throw new RuntimeException();
+
+            }catch (InterruptedException e){
+                Thread.currentThread().interrupt();
+                return null;
             }
         }
 
         Ticket ticket = ticketPool.remove(0);
         totalticketsold++;
-     System.out.println("\n================ TICKET PURCHASES ================");
+        System.out.println("\n================ TICKET PURCHASES ================");
         System.out.println(String.format(
                 "Ticket purchased by '%s' | Ticket Details: %s | Customer: %s",
                 Thread.currentThread().getName(),
@@ -104,9 +102,8 @@ public class TicketPool {
         ));
 
         logger.info("customer bought");
-        notifyAll();
-
+        notifyAll();//notify all waiting threads.
         return ticket;
-}
+    }
 
 }
