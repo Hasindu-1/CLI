@@ -1,15 +1,9 @@
 import java.math.BigDecimal;
 
 public class Ticket {
-
     private int ticketId;
-
     private String eventName;
-
-
     private int ticketPrice;
-
-
 
     public Ticket(int ticketId, String eventName,int ticketPrice) {
         this.ticketId = ticketId;
@@ -43,9 +37,9 @@ public class Ticket {
 
     @Override
     public  String toString(){
-        return "Ticket{"+
+        return "Ticket {"+
                 "ticketId="+ ticketId+
-                "eventName ="+eventName+ '\''+
+                " eventName ="+eventName+ '\''+
                 "ticketPrice =" +ticketPrice+
                 '}';
 

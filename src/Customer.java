@@ -1,15 +1,11 @@
+import java.util.logging.Logger;
+
 public class Customer implements Runnable {
-
-
     private int customerRetrievalRate;//Frequency which the tickets will be removed from pool
-
-    private int quantity;//Quantity customer wiling to purchase
-
     private  int totalTickets;
-
-
     private  final TicketPool tPool;//shared resource from Ticket pool for customer and Vendor.
-
+    public static boolean ticketAvailability = true;
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     public Customer( TicketPool tPool,int totalTickets,int customerRetrievalRate) {
         this.tPool = tPool;
@@ -18,43 +14,27 @@ public class Customer implements Runnable {
     }
 
 
-
-
     @Override
     public void run() {
         for (int i = 0; i < Vendor.initialGlobalV ; i++) {
 
+            Ticket ticket = tPool.buyTicket();
 
-                Ticket ticket = tPool.buyTicket();
-                System.out.println("Ticket bought by" + Thread.currentThread().getName()+"Ticket is "+ticket);
+            if(Vendor.globalV == 0){
+                ticketAvailability = false;
+            }
 
-                try {
-                    Thread.sleep(customerRetrievalRate);
+            try {
+                Thread.sleep(customerRetrievalRate);
 
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
 
-                }
+            } catch (InterruptedException e) {
+                logger.warning("Customer interrupted: " + e.getMessage());
+                throw new RuntimeException(e);
+
+            }
 
         }
     }
-
-
-    public int getCustomerRetrievalRate() {
-        return customerRetrievalRate;
-    }
-
-    public void setCustomerRetrievalRate(int customerRetrievalRate) {
-        this.customerRetrievalRate = customerRetrievalRate;
-    }
-
-
-
-
-
-
-
-
-
 
 }

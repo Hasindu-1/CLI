@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Configure {
 
@@ -13,6 +14,7 @@ public class Configure {
     private int customerRetrievalRate;
 
     private int  maxTicketCapacity;
+
 
     public Configure(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity) {
         this.totalTickets = totalTickets;
@@ -94,21 +96,7 @@ public class Configure {
     }
 
 
-//    public  void savetxtfile(String filename){
-//        try{
-//            FileWriter fw1 = new FileWriter(filename,false);
-//            fw1.write("Configure Txt  ");
-//            fw1.write("Total Tickets =" + totalTickets );
-//            fw1.write( "TicketReleaseRate = " + ticketReleaseRate );
-//            fw1.write("CustomerRetrievalRate = " + customerRetrievalRate );
-//            fw1.write("MaxTicketCapacity = " + maxTicketCapacity );
-//        }catch (Exception e){
-//            System.out.println("Error To write in txt file");
-//            System.out.println(e.getMessage());
-//
-//        }
-//
-//    }
+
 
     @Override
     public String toString() {

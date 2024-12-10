@@ -1,4 +1,9 @@
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public  class Main {
 
@@ -59,9 +64,11 @@ public  class Main {
 
             System.out.println("Enter the file name that want to create.");
             String s1 = input.next();
+
+
             //file creation
             c1.saveToFile(s1);
-            //c1.savetxtfile(s1);
+
             System.out.println( "file written saved");
             String show = c1.toString();
             System.out.println(show);
@@ -138,14 +145,28 @@ public  class Main {
         vendorThread3.start();
         customerThread1.start();
         customerThread2.start();
+
+
+
         System.out.println("Simulation started! Threads are running...\n");
+        logger.info("Simulation started! Threads are running...\n");
     }
 
 
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+//        try {
+//            LogManager.getLogManager().reset();
+//            FileHandler fileHandler = new FileHandler("Logging_file.log");
+//            logger.addHandler(fileHandler);
+//        } catch (IOException e) {
+//            logger.log(Level.SEVERE, "Error: ", e);
+//        }
+
         System.out.println("-------------Ticketing System-----------");
         menu(input);
+
 
 
 
