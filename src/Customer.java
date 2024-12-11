@@ -21,7 +21,7 @@ public class Customer implements Runnable {
             try {
                 Ticket ticket = tPool.buyTicket();
                 if (ticket != null) {
-                    //System.out.println(Thread.currentThread().getName() + " bought ticket: " + ticket);
+                    //Ticket bought by customer
                     Thread.sleep(customerRetrievalRate);
                 } else {
                     break; // Exit if no more tickets are available
@@ -33,7 +33,6 @@ public class Customer implements Runnable {
             }
         }
     }
-
 
 
 

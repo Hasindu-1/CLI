@@ -1,18 +1,16 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Logger;
+
 
 public class Configure {
 
     private int totalTickets ;
     private int ticketReleaseRate;
     private int customerRetrievalRate;
-
     private int  maxTicketCapacity;
 
 
@@ -43,7 +41,7 @@ public class Configure {
                 if (para.equals("Maximum Ticket Capacity")) {
                     if (number > totalTickets) {
                         System.out.println("The Maximum Ticket Capacity must not exceed the Total Number of Tickets (" + totalTickets + ").");
-                        number = -1; // Reset the number for re-entry
+                        number = -1; // Reset the number for retry.
                     }
                 } else if (para.equals("Ticket Release Rate")) {
                     if(number > totalTickets){
@@ -74,12 +72,13 @@ public class Configure {
 
 
     public void saveToFile(String filename) {
+        //use GsonBuilder to print json format Readable way.
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(filename)){
             gson.toJson(this,writer);
 
-        } catch (IOException exception) {
-            System.out.println("There is a error called - "+exception);
+        } catch (IOException e) {
+            System.out.println("There is a error called - "+ e);
         }
     }
 
@@ -88,16 +87,14 @@ public class Configure {
         try (FileReader reader = new FileReader(filename)) {
             return gson.fromJson(reader, Configure.class);
 
-
-        } catch (IOException exception) {
-            System.out.println("There is an error Reading this file- " + exception);
+        } catch (IOException e) {
+            System.out.println("There is an error Reading this file- " + e);
             return null;
         }
     }
 
 
-
-
+    //Use String format to display configure details in console.
     @Override
     public String toString() {
         return   "|****************************************|\n"+
@@ -111,8 +108,6 @@ public class Configure {
 
                         "|****************************************|\n" ;
     }
-
-
 
 
 

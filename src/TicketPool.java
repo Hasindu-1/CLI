@@ -3,25 +3,27 @@ import java.util.logging.Logger;
 
 public class TicketPool {
     private int maxTicket;// Maximum size of the ticket pool
-    public int totalTicketsAdded =0; // Counter for the total number of tickets added
+    public int totalTicketsAdded ;// Counter for the total number of tickets added
     private int totalTickets;
-    private final  Vector<Ticket> ticketPool =new Vector<>();
-    private int totalticketsold =0;
+    private final  Vector<Ticket> ticketPool =new Vector<>();//For store Tickets
+    private int totalticketsold ;
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
 
     public TicketPool(int maxTicket,int totalTickets){
         this.maxTicket=maxTicket;
         this.totalTickets=totalTickets;
+        totalTicketsAdded = 0;
+        totalticketsold = 0;
 
     }
 
 
 
     public synchronized boolean addTickets(Ticket vendorName) {
-        // Check if the total ticket limit has been reached
+        // set that only added ticket TotalTicket count.
         while (totalTicketsAdded < totalTickets) {
-            // Wait if the ticket pool is full
+            // Wait if the ticket pool is full.
             while (ticketPool.size() >= maxTicket) {
                 try {
 
@@ -30,13 +32,13 @@ public class TicketPool {
                             Thread.currentThread().getName()
                     ));
 
-                    wait(); // Wait until there's space in the pool
+                    wait(); // Wait until customers buy tickets.
                 } catch (InterruptedException e) {
                     throw new RuntimeException("Vendor interrupted", e);
                 }
             }
 
-            // Re-check the global ticket limit after waking up
+            // Recheck the global ticket limit
             if (totalTicketsAdded >= totalTickets) {
                 System.out.println(vendorName + " cannot add tickets. Global ticket limit reached.");
                 return false; // Indicate that no more tickets can be added
@@ -56,14 +58,14 @@ public class TicketPool {
             ));
 
 
-            logger.info("Vendoer added");
+            logger.info( Thread.currentThread().getName()+" Vendor added");
 
-            // Notify other threads (e.g., customers) that a ticket has been added
+            // Notify all other threads that vendor added tickets.
             notifyAll();
-            return true; // Indicate that the ticket was successfully added
+            return true; // Set that the ticket was successfully added.
         }
 
-        // If global ticket limit has been reached before entering the loop
+        // check the total tickets limit won't exceed
         System.out.println(vendorName + " cannot add tickets. Global ticket limit reached.");
         return false;
     }
@@ -101,7 +103,7 @@ public class TicketPool {
                 totalticketsold
         ));
 
-        logger.info("customer bought");
+        logger.info(Thread.currentThread().getName() +" customer bought");
         notifyAll();//notify all waiting threads.
         return ticket;
     }
